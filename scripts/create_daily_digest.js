@@ -20,7 +20,7 @@ function sleep(ms) {
 
 async function main() {
 	const stories = JSON.parse( fs.readFileSync( path.join( __dirname, '..', 'data', 'stories.json' ), 'utf8' ) );
-	let digest = '## AI Submissions for ' + YESTERDAY.toDateString() + ' {{ \'date\': \'' + YESTERDAY.toISOString() + '\' }}\n\n';
+	let digest = '## Hacker News Digest for ' + YESTERDAY.toDateString() + ' {{ \'date\': \'' + YESTERDAY.toISOString() + '\' }}\n\n';
 	for ( let i = 0; i < stories.length; i++ ) {
 		const story = stories[i];
 		if ( !story.url ) {
@@ -53,7 +53,7 @@ async function main() {
 			const content = innerText.trim().substring(0, 6000);
 			try {
 				let completion = await openai.chat.completions.create({
-					model: 'gpt-5',
+					model: 'deepseek/deepseek-chat-v3-0324:free',
 					messages: [
 						{ role: 'system', content: 'This AI will write a daily digest of the top stories on Hacker News; it will summarize the following submission in an engaging way.' },
 						{ role: 'user', content: content },
@@ -68,7 +68,7 @@ async function main() {
 
 				const comments = jsonSerializeCompressed( story.comments ).substring(0, 6000);
 				completion = await openai.chat.completions.create({
-					model: 'deepseek/deepseek-r1',
+					model: 'deepseek/deepseek-chat-v3-0324:free',
 					messages: [
 						{ role: 'system', content: 'This AI will write a daily digest of the top stories on Hacker News; it will summarize the following discussion about the submission in the comments on Hacker News.' },
 						{ role: 'user', content: 'Summary of Submission: '+summary+'.' },

@@ -30,30 +30,15 @@ async function fetchNewestStories() {
 			const storyDate = new Date(storyData.time * 1000);
 			if ( storyDate.getDate() === YESTERDAY.getDate() ) {
 				if ( storyData.descendants >= 3 && storyData.score >= 5 ) {
-					console.log( 'Checking story "' + storyData.title +'" for AI content...' );
+					console.log( 'Including story: "' + storyData.title +'"' );
 					try {
-						const completion = await openai.chat.completions.create({
-							model: 'gpt-5-mini',
-							messages: [
-								{ role: 'system', content: 'You are a classifier deciding whether a story is about AI or not solely based on its title. You return "true" if the story is about AI and "false" if it is not. You have to choose one or the other.' },
-								{ role: 'user', content: 'Story: '+storyData.title+'. Result (true|false):' },
-							]
-						}, {
-							timeout: 10000,
-						});
-						const label = completion.choices[0].message.content.toLowerCase();
-						console.log( 'About AI? ' + label );
-						if ( !label.startsWith( 'true' ) ) {
-							continue;
-						}
-
 						// Retrieve all kids of the story and add them to the out array
 						await fetchKids( storyData );
 						delete storyData.kids;
 						delete storyData.type;
 						out.push(storyData);
 					} catch (error) {
-						console.error('Error generating daily digest:', error);
+						console.error('Error processing story:', error);
 					}
 				}
 			}

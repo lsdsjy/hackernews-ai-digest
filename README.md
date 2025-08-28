@@ -1,3 +1,3 @@
-# Hacker News AI Digest
+# Hacker News Digest
 
-Daily Digest of Hacker News submissions related to AI.
+Daily Digest of popular Hacker News submissions.

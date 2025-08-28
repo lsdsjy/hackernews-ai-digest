@@ -38,14 +38,14 @@ const emailContent = {
     list_id: LIST_ID
   },
   settings: {
-    subject_line: 'Daily AI Digest',
+    subject_line: 'Daily Hacker News Digest',
     reply_to: 'pburckhardt@outlook.com',
     from_name: 'Philipp Burckhardt'
   },
   campaign_defaults: {
     from_email: 'pburckhardt@outlook.com',
     from_name: 'Philipp Burckhardt',
-    subject: 'Daily AI Digest',
+    subject: 'Daily Hacker News Digest',
     language: 'en',
   },
   tracking: {
